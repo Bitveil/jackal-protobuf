@@ -1,0 +1,69 @@
+syntax = "proto3";
+package canine_chain.notifications;
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "canine_chain/notifications/params.proto";
+import "canine_chain/notifications/notification.proto";
+
+option go_package = "github.com/jackalLabs/canine-chain/x/notifications/types";
+
+service Query {
+  rpc Params(QueryParams) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/jackal/canine-chain/notifications/params";
+  }
+
+  // Queries a Notification object
+	rpc Notification(QueryNotification) returns (QueryNotificationResponse) {
+		option (google.api.http).get = "/jackal/canine-chain/notifications/notifications/{to}/{from}/{time}";
+	}
+
+	// Queries a list of Notification items.
+	rpc AllNotifications(QueryAllNotifications) returns (QueryAllNotificationsResponse) {
+		option (google.api.http).get = "/jackal/canine-chain/notifications/notifications";
+	}
+
+	// Queries a list of Notification items by address.
+	rpc AllNotificationsByAddress(QueryAllNotificationsByAddress) returns (QueryAllNotificationsByAddressResponse) {
+		option (google.api.http).get = "/jackal/canine-chain/notifications/notifications/{to}";
+	}
+
+}
+
+message QueryParams {}
+
+message QueryParamsResponse {
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryNotification {
+	  string to = 1;
+	  string from = 2;
+	  int64 time = 3; // unix timestamp in microseconds
+
+}
+
+message QueryNotificationResponse {
+	Notification notification = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllNotifications {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllNotificationsResponse {
+	repeated Notification notifications = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryAllNotificationsByAddress {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+	string to = 2;
+}
+
+message QueryAllNotificationsByAddressResponse {
+	repeated Notification notifications = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

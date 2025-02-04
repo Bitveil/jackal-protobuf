@@ -1,0 +1,11 @@
+syntax = "proto3";
+package canine_chain.oracle;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/jackalLabs/canine-chain/x/oracle/types";
+
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  string deposit = 1;
+}

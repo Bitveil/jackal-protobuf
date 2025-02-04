@@ -1,0 +1,6 @@
+syntax = "proto3";
+package canine_chain.jklmint;
+
+option go_package = "github.com/jackalLabs/canine-chain/x/jklmint/types";
+
+service Msg {}

@@ -1,0 +1,46 @@
+syntax = "proto3";
+package canine_chain.jklmint;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "canine_chain/jklmint/params.proto";
+
+option go_package = "github.com/jackalLabs/canine-chain/x/jklmint/types";
+
+service Query {
+  rpc Params(QueryParams) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/cosmos/mint/v1beta1/params";
+  }
+
+  // Inflation returns the current minting inflation value.
+  rpc Inflation(QueryInflation) returns (QueryInflationResponse) {
+    option (google.api.http).get = "/cosmos/mint/v1beta1/inflation";
+  }
+
+  rpc MintedTokens(QueryMintedTokens) returns (QueryMintedTokensResponse) {
+    option (google.api.http).get = "/jackal/canine-chain/mint/minted/{block}";
+  }
+}
+
+message QueryParams {}
+
+message QueryParamsResponse {
+  Params params = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryInflation {}
+
+message QueryInflationResponse {
+  bytes inflation = 1 [
+    (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec",
+    (gogoproto.nullable) = false
+  ];
+}
+
+message QueryMintedTokens {
+  int64 block = 1;
+}
+
+message QueryMintedTokensResponse {
+  int64 tokens = 1;
+}
