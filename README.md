@@ -9,3 +9,8 @@ To install the Python package, run:
 
 ```bash
 pip install jackal-protobuf
+```
+You can also install it from this repository via git remote URL, run:
+```
+pip install git+https://github.com/Bitveil/jackal-protobuf.git
+```
