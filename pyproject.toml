@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jackal-protobuf"
+version = "0.0.1"
+description = "Packaged protobufs for Jackal Blockchain"
+authors = [
+    { name = "Nastor" }
+]
+requires-python = ">=3.10"
+keywords = ["grpcio", "grpcio-tools", "protobuf", "cosmos", "jackal_protobuf"]
+license = {text = "GPL-3.0 license"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+]
+dependencies = [
+  'protobuf == 4.22.1',
+  'grpcio == 1.70.0',
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jackal_protobuf"]
